@@ -1,0 +1,26 @@
+// Login App
+.login-app {
+  @extend .app-background;
+  margin-bottom: 26%;
+
+  .login-title {
+    display: block;
+    font-weight: 100;
+    font-size: 5em;
+    color: color("teal", "lighten-1");
+    margin-bottom: 20px;
+  }
+
+  .login-btn {
+    width: 120px;
+    text-align: center;
+    margin: 3px;
+    padding: 0;
+    color: color("teal", "lighten-1");
+  }
+  small{
+    color: red;
+  }
+
+}
+

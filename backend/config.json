@@ -1,0 +1,18 @@
+{
+  "mysql": {
+    "user": "root",
+    "password": "usbw",
+    "port": "3306",
+    "host": "localhost",
+    "database": "onlinetester"
+  },
+  "http_port": "3003",
+  "db_request": {
+    "user_table": "users",
+    "role_table": "role"
+  },
+  "session": {
+    "secret": "adsfrSA3fdSd3",
+    "maxAge": "1000"
+  }
+}
