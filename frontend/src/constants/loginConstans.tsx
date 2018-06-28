@@ -1,5 +1,6 @@
 export enum ILoginActionTypes {
   AUTH = 'AUTH_REQUEST',
+  UPDATEROLE = 'UPDATE_ROLE',
 }
 
 export enum IAsyncLoginActionTypes {

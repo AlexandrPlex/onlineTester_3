@@ -11,6 +11,7 @@ export interface ILoginStoreState {
   loadingState: boolean;
   serverConnectError: boolean;
   dataAuthError: boolean;
+  role_type: string;
 }
 
 const initialState = {
@@ -20,6 +21,7 @@ const initialState = {
       loadingState: false,
       serverConnectError: false,
       dataAuthError: false,
+      role_type: '',
     };
   },
 };
@@ -38,8 +40,28 @@ export default function loginReducer(state: ILoginStoreState = initialState.stat
         ...state,
         loadingState: false,
         loginState: true,
+        role_type: action.payload.role_type,
       };
     case `${ILoginActionTypes.AUTH}${IAsyncLoginActionTypes.FAILURE}`:
+      return {
+        ...state,
+        loadingState: false,
+        serverConnectError: action.payload.serverConnectError,
+        dataAuthError: action.payload.dataAuthError,
+      };
+    case `${ILoginActionTypes.UPDATEROLE}${IAsyncLoginActionTypes.BEGIN}`:
+      return {
+        ...state,
+        loadingState: true,
+      };
+    case `${ILoginActionTypes.UPDATEROLE}${IAsyncLoginActionTypes.SUCCESS}`:
+      return {
+        ...state,
+        loadingState: false,
+        loginState: action.payload.loginState,
+        role_type: action.payload.role_type,
+      };
+    case `${ILoginActionTypes.UPDATEROLE}${IAsyncLoginActionTypes.FAILURE}`:
       return {
         ...state,
         loadingState: false,

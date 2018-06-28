@@ -10,6 +10,7 @@ interface IStateProps {
   serverConnectError: boolean;
   dataAuthError: boolean;
   loginState: boolean;
+  role_type: string;
 }
 
 type TProps = IDispatchProps & IStateProps;
@@ -25,9 +26,9 @@ class LoginForm extends React.PureComponent<TProps, {loginValue: string, passwor
   public onHandleLogin = () => {
     if (Boolean(this.state.loginValue) && Boolean(this.state.passwordValue)) {
       this.props.loginActions.onHandelAuthentication(this.state.loginValue, hash.sha1(this.state.passwordValue))
-        .then((res: any) => {
+        .then(() => {
           if (this.props.loginState) {
-            this.context.router.history.push(res.pathForRole);
+            this.context.router.history.push(this.props.role_type);
           }
         });
     }
@@ -53,6 +54,7 @@ function mapStateToProps(state: IAppState): IStateProps {
     serverConnectError: state.loginReducer.serverConnectError,
     dataAuthError: state.loginReducer.dataAuthError,
     loginState: state.loginReducer.loginState,
+    role_type: state.loginReducer.role_type,
   };
 }
 

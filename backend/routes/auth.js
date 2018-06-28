@@ -8,6 +8,6 @@ const router = express.Router();
 
 router.post('/login', passport.authenticate('local'), logIn);
 
-router.get('/role', authenticationMiddleware(), getRole);
+router.post('/role', authenticationMiddleware(), getRole);
 
 export default router;

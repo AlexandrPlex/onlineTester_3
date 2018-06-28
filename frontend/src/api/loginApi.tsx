@@ -17,12 +17,3 @@ export function authenticationRequest(login: string, password: string): AxiosPro
       }
     });
 }
-
-export function getRoleRequest(): AxiosPromise {
-  return axios.get(`${config.apiPrefix}:${config.serverPort}/${config.rootRoutes.getRole}`)
-      .then((response: any) => {
-      if (response.status === 200 || 304) {
-        return response;
-      }
-    });
-}

@@ -1,5 +1,5 @@
 import {Dispatch} from 'redux';
-import {authenticationRequest, getRoleRequest} from '../api/loginApi';
+import {authenticationRequest} from '../api/loginApi';
 import {IAsyncLoginActionTypes, ILoginActionTypes} from '../constants/loginConstans';
 
 export interface IDispatchProps {
@@ -15,7 +15,7 @@ export class LoginActions {
       authenticationRequest(login, password)
         .then((res: any) => {
           if (res.data.auth) {
-            this.dispatch({type: `${ILoginActionTypes.AUTH}${IAsyncLoginActionTypes.SUCCESS}`});
+            this.dispatch({type: `${ILoginActionTypes.AUTH}${IAsyncLoginActionTypes.SUCCESS}`, payload: {role_type: res.data.role_type}});
             resolve(res.data);
           } else {
             this.dispatch({type: `${ILoginActionTypes.AUTH}${IAsyncLoginActionTypes.FAILURE}`, payload: {serverConnectError: false, dataAuthError: true}});
@@ -27,9 +27,5 @@ export class LoginActions {
           reject(error);
         });
     });
-  }
-
-  public onGetRole = () => {
-    return getRoleRequest();
   }
 }
