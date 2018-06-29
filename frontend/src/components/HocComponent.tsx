@@ -22,11 +22,17 @@ const HocComponet = (Component: any) => {
           this.setState({auth: data.auth, role_type: data.role_type});
         }
         public onRedirect = (url: string) => {
+          if (document.location.pathname !== '/') {
           return document.location.replace(url);
+          }
+          return <Component />;
         }
         public onRoute = () => {
           if (this.state.role_type === document.location.pathname) {
             return <Component/>;
+          }
+          if (document.location.pathname === '/') {
+            return this.context.router.history.push(this.state.role_type);
           }
           return this.context.router.history.push('/404');
         }

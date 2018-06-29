@@ -15,7 +15,7 @@ import { Footer } from './components/Footer';
 export const router = (
   <div>
     <Switch>
-      <Route exact path='/' component={LoginPage} />
+      <Route exact path='/' component={RouterComponentHOC(LoginPage)} />
       <Route path='/student' component={ RouterComponentHOC(StudentPage) } />
       <Route path='/admin' component={RouterComponentHOC(AdminPage)} />
       <Route path='/teacher' component={RouterComponentHOC(TeacherPage)} />
