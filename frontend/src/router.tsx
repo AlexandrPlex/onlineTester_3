@@ -17,8 +17,8 @@ export const router = (
     <Switch>
       <Route exact path='/' component={LoginPage} />
       <Route path='/student' component={ RouterComponentHOC(StudentPage) } />
-      <Route path='/admin' component={AdminPage} />
-      <Route path='/teacher' component={TeacherPage} />
+      <Route path='/admin' component={RouterComponentHOC(AdminPage)} />
+      <Route path='/teacher' component={RouterComponentHOC(TeacherPage)} />
       <Route path='*' component={NotFoundPage}/>
     </Switch>
     <Footer />

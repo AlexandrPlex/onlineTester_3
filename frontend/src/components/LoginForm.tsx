@@ -28,12 +28,13 @@ class LoginForm extends React.PureComponent<TProps, {loginValue: string, passwor
       this.props.loginActions.onHandelAuthentication(this.state.loginValue, hash.sha1(this.state.passwordValue))
         .then(() => {
           if (this.props.loginState) {
-            console.log('login');
-            console.log(this.props.loginState);
-            this.context.router.history.push(this.props.role_type);
+            this.onRedirect();
           }
         });
     }
+  }
+  public onRedirect = () => {
+    return this.context.router.history.push(this.props.role_type);
   }
 
   public render() {
