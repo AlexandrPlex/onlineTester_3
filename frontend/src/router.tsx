@@ -8,9 +8,7 @@ import { AdminPage } from './pages/AdminPage';
 import { StudentPage } from './pages/StudentPage';
 import { TeacherPage } from './pages/TeacherPage';
 
-import asyncComponent from './components/HocComponent';
-
-console.log(asyncComponent(StudentPage));
+import RouterComponentHOC from './components/HocComponent';
 
 import { Footer } from './components/Footer';
 
@@ -18,7 +16,7 @@ export const router = (
   <div>
     <Switch>
       <Route exact path='/' component={LoginPage} />
-      <Route path='/student' component={StudentPage} />
+      <Route path='/student' component={ RouterComponentHOC(StudentPage) } />
       <Route path='/admin' component={AdminPage} />
       <Route path='/teacher' component={TeacherPage} />
       <Route path='*' component={NotFoundPage}/>
