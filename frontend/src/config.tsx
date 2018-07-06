@@ -4,5 +4,6 @@ export const config: any = {
   rootRoutes: {
     auth: 'api/auth/login',
     getRole: 'api/auth/role',
+    logout: 'api/auth/logout',
   },
 };

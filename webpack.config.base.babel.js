@@ -1,4 +1,4 @@
-;import * as path from 'path';
+import * as path from 'path';
 import webpack from 'webpack';
 import postcssCssnext from 'postcss-cssnext';
 import postcssImport from 'postcss-import';

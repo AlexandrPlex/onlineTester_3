@@ -17,3 +17,16 @@ export function authenticationRequest(login: string, password: string): AxiosPro
       }
     });
 }
+export function logOutRequest(): AxiosPromise {
+  return axios.post(`${config.apiPrefix}:${config.serverPort}/${config.rootRoutes.logout}`,
+    {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+    })
+    .then((response: any) => {
+      if (response.status === 200 || 304) {
+        return response;
+      }
+    });
+}

@@ -1,6 +1,6 @@
-import { ILoginStoreState } from '../reducers/loginReducer';
+import { ICommonStoreState } from '../reducers/commonReducer';
 
 // Global State
 export interface IAppState {
-  loginReducer: ILoginStoreState;
+  commonReducer: ICommonStoreState;
 }
