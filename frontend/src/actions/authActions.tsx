@@ -22,7 +22,7 @@ export class AuthActions {
             resolve(res.data);
           }
         })
-        .catch((error: Error) => {
+        .catch((error: any) => {
           this.dispatch({type: `${IAuthActionTypes.AUTH}${IAsyncAuthActionTypes.FAILURE}`, payload: {serverConnectError: true, serverDataError: false}});
           reject(error);
         });
@@ -32,6 +32,7 @@ export class AuthActions {
     return new Promise((resolve: any) => {
       logOutRequest()
         .then(() => {
+          console.log('logout');
           this.dispatch({type: `${IAuthActionTypes.LOGOUT}`});
           resolve();
         });

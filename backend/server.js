@@ -60,7 +60,7 @@ app.use(session({
   saveUninitialized: false,
   resave: false,
   cookie: {
-    //maxAge: Number(config.session.maxAge), // Время жизни сессии, если убрать станет бесконечным
+    maxAge: 24*60*60*1000,
     httpOnly: !isProduction,
     secure: isProduction,
   },
