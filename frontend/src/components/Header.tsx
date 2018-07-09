@@ -31,10 +31,10 @@ class Header extends React.PureComponent<TProps> {
       <div className='nav-wrapper'>
         <div className='container'>
           <span className='brand-logo'><NavLink exact={true} activeClassName='active-link' to={this.props.authState ? this.props.role_type : '/'}>Tester Online</NavLink></span>
-          <ul id='nav-mobile' className='right hide-on-med-and-down'>
+          <ul >
             {
               this.props.authState ?
-              <NavLink onClick={this.onHendleLogOut} activeClassName='right hide-on-med-and-down' to=''>Logout</NavLink> :
+              <NavLink onClick={this.onHendleLogOut} className='right' to=''>Logout</NavLink> :
                null
             }
           </ul>

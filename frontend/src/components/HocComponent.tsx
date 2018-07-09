@@ -32,7 +32,7 @@ const HocComponet = (Component: any) => {
           return document.location.replace(url);
         }
         public onRoute = () => {
-          if (data.role_type === document.location.pathname) {
+          if (data.role_type === `/${document.location.pathname.split('/')[1]}`) {
             return <Component/>;
           }
           return this.context.router.history.push('/404');

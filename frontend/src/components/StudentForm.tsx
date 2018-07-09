@@ -13,6 +13,7 @@ interface IStateProps {
   authState: boolean;
   role_type: string;
   testListData: [object];
+  subjects: [string];
 }
 
 type TProps = IDispatchProps & IStateProps;
@@ -27,12 +28,22 @@ class StudentForm extends React.Component<TProps> {
   public componentWillMount() {
     this.props.studentActions.onLoadTestListData();
   }
-
+  public onFilter = (subject: string) => {
+    if (subject === 'all') {
+      this.props.studentActions.onLoadTestListData();
+    } else {
+      this.props.studentActions.onFilterData(subject);
+    }
+  }
+  public onActiveTest = (idTest: number) => {
+    this.props.studentActions.chengeTest(idTest);
+    return this.context.router.history.push(this.props.role_type + '/test');
+  }
   public render() {
     return(
       <div className='row'>
-        <SubjectsTest/>
-        <TestList testList={ this.props.testListData } />
+        <SubjectsTest subjects={this.props.subjects} onFilter={this.onFilter} />
+        <TestList testList={ this.props.testListData } onActiveTest={this.onActiveTest} />
       </div>
     );
   }
@@ -45,6 +56,7 @@ function mapStateToProps(state: IAppState): IStateProps {
     authState: state.commonReducer.authState,
     role_type: state.commonReducer.role_type,
     testListData: state.studentReducer.testListData,
+    subjects: state.studentReducer.subjects,
   };
 }
 

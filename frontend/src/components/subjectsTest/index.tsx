@@ -1,17 +1,18 @@
 import * as React from 'react';
 
 interface IStateProps {
-  testList?: [object];
+  onFilter: any;
+  subjects: [string];
 }
 
 export class SubjectsTest extends React.PureComponent<IStateProps> {
   public render() {
     return(
-      <ul className='collection col s3'>
-        <li className='collection-item'>Alvin</li>
-        <li className='collection-item'>Alvin</li>
-        <li className='collection-item'>Alvin</li>
-        <li className='collection-item'>Alvin</li>
+      <ul className='collection col s3 subjectBloc'>
+        <li className='collection-item' onClick={this.props.onFilter.bind(this, 'all')}> <a href='#all'> Все </a> </li>
+        { this.props.subjects.map( (el: any) => {
+          return <li className='collection-item' onClick={this.props.onFilter.bind(this, el)}><a href='#sub' >{el}</a></li>;
+        }) }
       </ul>
     );
   }

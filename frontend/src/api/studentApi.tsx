@@ -15,3 +15,17 @@ export function getTestListRequest(): AxiosPromise {
       }
     });
 }
+export function getTestIssuesRequest(idTest: number): AxiosPromise {
+  return axios.post(`${config.apiPrefix}:${config.serverPort}/${config.rootRoutes.getIssues}`,
+    {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      idTest,
+    })
+    .then((response: any) => {
+      if (response.status === 200 || 304) {
+        return response;
+      }
+    });
+}
