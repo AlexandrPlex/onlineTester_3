@@ -24,7 +24,7 @@ export const router = (
     <Header />
     <Switch>
       <Route exact path='/' component={ HocLoginComponet(LoginPage) } />
-      <Route path='/student/test' component={RouterComponentHOC(withAppLayout(TesterForm))}/>
+      <Route path='/student/test/:id?' component={RouterComponentHOC(withAppLayout(TesterForm))}/>
       <Route path='/student' component={ RouterComponentHOC(withAppLayout(StudentForm)) }/>
       <Route path='/admin' component={ RouterComponentHOC(AdminPage)} />
       <Route path='/teacher' component={ RouterComponentHOC(TeacherPage)} />

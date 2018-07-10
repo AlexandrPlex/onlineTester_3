@@ -1,4 +1,4 @@
-import db from "../db";
+import { db, promiseDB } from "../db";
 
 export const getTestListData = async (req, res) => {
   const request =  `SELECT studentfortests.id,
@@ -22,22 +22,27 @@ export const getTestListData = async (req, res) => {
 };
 
 export const getTestIssues = async (req, res) => {
-  // Список вопросов к тесту
-  const requestIssues =  `SELECT issues.id, issues.textIssues as issues 
-                    FROM testisssues
-                    JOIN issues ON testisssues.id_test = issues.id
-                    WHERE testisssues.id_test = '${req.body.idTest}'
-                    `;
-  // Список возможных ответов к определенному вопросу
+  const requestIssues = `SELECT issues.id, 
+                                issues.textIssues as issues,
+                                issues.type 
+                         FROM testisssues
+                         JOIN issues ON testisssues.id_issues = issues.id
+                         WHERE testisssues.id_test = '${req.body.idTest}'
+                         `;
   const reqestAnswer = (idIssues) => {
     return `SELECT answer.text  
             FROM issus_to_answer
             JOIN answer ON issus_to_answer.id_answer = answer.id 
-            WHERE issus_to_answer.id_issues = '${idIssues}'`;
-  };
-  db.query(requestIssues, (error, results) => {
-    if (error) res.send({error: true});
+            WHERE issus_to_answer.id_issues = '${idIssues}'`};
 
-    res.send(results);
+  promiseDB.then(conn => {
+  const result = conn.query(requestIssues);
+  const result2 = result.map(async (el) => {
+    el.answer = await conn.query(reqestAnswer(el.id));
+    return el;
+  });
+  return result2;
+  }).then(row => {
+    res.send(row);
   });
 };

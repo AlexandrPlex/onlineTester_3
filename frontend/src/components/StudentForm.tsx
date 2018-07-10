@@ -14,6 +14,7 @@ interface IStateProps {
   role_type: string;
   testListData: [object];
   subjects: [string];
+  activeTest: number;
 }
 
 type TProps = IDispatchProps & IStateProps;
@@ -37,7 +38,7 @@ class StudentForm extends React.Component<TProps> {
   }
   public onActiveTest = (idTest: number) => {
     this.props.studentActions.chengeTest(idTest);
-    return this.context.router.history.push(this.props.role_type + '/test');
+    return this.context.router.history.push({pathname: '/student/test', serch: {id: '3'}});
   }
   public render() {
     return(
@@ -57,6 +58,7 @@ function mapStateToProps(state: IAppState): IStateProps {
     role_type: state.commonReducer.role_type,
     testListData: state.studentReducer.testListData,
     subjects: state.studentReducer.subjects,
+    activeTest: state.studentReducer.activeTest,
   };
 }
 

@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import { IDispatchProps, StudentActions } from '../../actions/studentActions';
 import { IAppState } from '../../types';
+import { AnswerForm } from './AnswerForm';
 
 interface IStateProps {
   serverConnectError: boolean;
@@ -31,7 +32,8 @@ class TesterForm extends React.Component<TProps> {
   public render() {
     return(
       <div className='row'>
-        <h1>Tester Form</h1>
+        {this.context.router.history.param.id}
+        <AnswerForm />
       </div>
     );
   }

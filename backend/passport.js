@@ -2,7 +2,7 @@
 import { Strategy as LocalStrategy } from 'passport-local';
 import passport from 'passport';
 
-import db from './db';
+import { db } from './db';
 import config from './config.json';
 
 passport.use('local', new LocalStrategy(
