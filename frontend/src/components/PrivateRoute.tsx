@@ -1,14 +1,26 @@
 import * as React from 'react';
+import { connect } from 'react-redux';
 import {RouteProps} from 'react-router';
 import { Route } from 'react-router-dom';
+import { Dispatch } from 'redux';
+import { AuthActions, IDispatchProps } from '../actions/authActions';
+import { IAppState } from '../types';
 
-interface IState {
+interface IRouteState {
   component: any;
 }
 
-type IPropsState = IState & RouteProps;
+interface IStateProps {
+  serverConnectError: boolean;
+  serverDataError: boolean;
+  authState: boolean;
+  role_type: string;
+  loadingState: boolean;
+}
 
-export class PrivateRoute extends React.Component<IPropsState> {
+type IPropsState = IStateProps & IRouteState & RouteProps;
+
+class PrivateRoute extends React.Component<IPropsState> {
   public render() {
     const {component: Component, ...rest} = this.props;
     return (
@@ -17,8 +29,22 @@ export class PrivateRoute extends React.Component<IPropsState> {
   }
 }
 
-// const mapStateToProps = state => ({
-//   isAuthenticated: state.user.isAuthenticated,
-// });
-//
-// export default connect(mapStateToProps)(PrivateRoute);
+function mapStateToProps(state: IAppState): IStateProps {
+  return {
+    serverConnectError: state.commonReducer.serverConnectError,
+    serverDataError: state.commonReducer.serverDataError,
+    authState: state.commonReducer.authState,
+    role_type: state.commonReducer.role_type,
+    loadingState: state.commonReducer.loadingState,
+  };
+}
+
+function mapDispatchToProps(dispatch: Dispatch<IDispatchProps>): IDispatchProps {
+  return {
+    authActions: new AuthActions(dispatch),
+  };
+}
+
+const connectApp = connect(mapStateToProps, mapDispatchToProps)(PrivateRoute);
+
+export {connectApp as PrivateRoute};
