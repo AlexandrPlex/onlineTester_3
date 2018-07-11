@@ -45,6 +45,6 @@ function mapDispatchToProps(dispatch: Dispatch<IDispatchProps>): IDispatchProps 
   };
 }
 
-const connectApp = connect(mapStateToProps, mapDispatchToProps)(PrivateRoute);
+const connectApp = connect(mapStateToProps/*, mapDispatchToProps*/)(PrivateRoute);
 
 export {connectApp as PrivateRoute};
