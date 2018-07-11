@@ -1,6 +1,7 @@
 import * as PropTypes from 'prop-types';
 import * as React from 'react';
 import { connect } from 'react-redux';
+import { RouteComponentProps } from 'react-router-dom';
 import { Dispatch } from 'redux';
 import { IDispatchProps, StudentActions } from '../../actions/studentActions';
 import { IAppState } from '../../types';
@@ -10,10 +11,16 @@ interface IStateProps {
   serverConnectError: boolean;
   serverDataError: boolean;
   authState: boolean;
-  activeTest: number;
   testIssuesList: [object];
   testState: [object];
+  id: number;
 }
+
+interface IRouterProps {
+  id: number;
+}
+
+type ISProps = IStateProps & IRouterProps;
 
 type TProps = IDispatchProps & IStateProps;
 
@@ -25,28 +32,27 @@ class TesterForm extends React.Component<TProps> {
     super(props, context);
   }
   public componentWillMount() {
-    this.props.studentActions.getTestIssues(this.props.activeTest);
-    console.log(this.props.testState);
+    console.log(this.props.id);
+    this.props.studentActions.getTestIssues(this.props.id);
   }
 
   public render() {
     return(
-      <div className='row'>
-        {this.context.router.history.param.id}
-        <AnswerForm />
+      <div>
+        <AnswerForm  />
       </div>
     );
   }
 }
 
-function mapStateToProps(state: IAppState): IStateProps {
+function mapStateToProps(state: IAppState, ownProps: RouteComponentProps<IRouterProps>): ISProps {
   return {
     serverConnectError: state.commonReducer.serverConnectError,
     serverDataError: state.commonReducer.serverDataError,
     authState: state.commonReducer.authState,
-    activeTest: state.studentReducer.activeTest,
     testIssuesList: state.studentReducer.testIssuesList,
     testState: state.studentReducer.testState,
+    id: ownProps.match.params.id,
   };
 }
 

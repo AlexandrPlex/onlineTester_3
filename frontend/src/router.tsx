@@ -17,6 +17,8 @@ import HocLoginComponet from './components/HocLoginComponent';
 import { Footer } from './components/Footer';
 import { Header } from './components/Header';
 
+import {PrivateRoute} from './components/PrivateRoute';
+
 const withAppLayout = (Component: any) => (props: any) => <StudentPage><Component {...props} /></StudentPage>;
 
 export const router = (
@@ -24,7 +26,8 @@ export const router = (
     <Header />
     <Switch>
       <Route exact path='/' component={ HocLoginComponet(LoginPage) } />
-      <Route path='/student/test/:id?' component={RouterComponentHOC(withAppLayout(TesterForm))}/>
+      <PrivateRoute path='/sd' component={AdminPage} />
+      <Route path='/student/test/:id' component={RouterComponentHOC(withAppLayout(TesterForm))}/>
       <Route path='/student' component={ RouterComponentHOC(withAppLayout(StudentForm)) }/>
       <Route path='/admin' component={ RouterComponentHOC(AdminPage)} />
       <Route path='/teacher' component={ RouterComponentHOC(TeacherPage)} />

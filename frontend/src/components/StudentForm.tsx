@@ -37,8 +37,7 @@ class StudentForm extends React.Component<TProps> {
     }
   }
   public onActiveTest = (idTest: number) => {
-    this.props.studentActions.chengeTest(idTest);
-    return this.context.router.history.push({pathname: '/student/test', serch: {id: '3'}});
+    return this.context.router.history.push({pathname: `/student/test/${idTest}`});
   }
   public render() {
     return(

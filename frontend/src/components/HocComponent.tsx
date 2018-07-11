@@ -2,6 +2,7 @@ import * as PropTypes from 'prop-types';
 import * as React from 'react';
 import { asyncComponent } from 'react-async-component';
 import { connect } from 'react-redux';
+import { RouteComponentProps } from 'react-router-dom';
 import { Dispatch } from 'redux';
 import { AuthActions, IDispatchProps } from '../actions/authActions';
 import { getRoleRequestFetch } from '../api/hocAuthApi';
@@ -15,6 +16,7 @@ const HocComponet = (Component: any) => {
       interface IStateProps {
         authState: boolean;
         role_type: string;
+        history: any;
       }
 
       type TProps = IDispatchProps & IStateProps;
@@ -33,9 +35,9 @@ const HocComponet = (Component: any) => {
         }
         public onRoute = () => {
           if (data.role_type === `/${document.location.pathname.split('/')[1]}`) {
-            return <Component/>;
+            return <Component {...this.props} />;
           }
-          return this.context.router.history.push('/404');
+          return this.props.history.push('/404');
         }
         public render() {
           return <div> {
@@ -43,10 +45,11 @@ const HocComponet = (Component: any) => {
           } </div>;
         }
       }
-      function mapStateToProps(state: IAppState): IStateProps {
+      function mapStateToProps(state: IAppState, ownProps: RouteComponentProps<{}>): IStateProps {
         return {
           authState: state.commonReducer.authState,
           role_type: state.commonReducer.role_type,
+          history: ownProps.history,
         };
       }
 

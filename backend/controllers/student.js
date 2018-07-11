@@ -36,7 +36,9 @@ export const getTestIssues = async (req, res) => {
             WHERE issus_to_answer.id_issues = '${idIssues}'`};
 
   promiseDB.then(conn => {
-  const result = conn.query(requestIssues);
+  const result = conn.query(requestIssues).catch(error => {
+    console.log(error);
+  });
   const result2 = result.map(async (el) => {
     el.answer = await conn.query(reqestAnswer(el.id));
     return el;
@@ -44,5 +46,7 @@ export const getTestIssues = async (req, res) => {
   return result2;
   }).then(row => {
     res.send(row);
-  });
+  }).catch(error => {
+    res.send(error);
+  })
 };
