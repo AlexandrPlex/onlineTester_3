@@ -16,7 +16,7 @@ interface IStateProps {
 
 type IPropsState = IStateProps & IDispatchProps;
 
-class PrivateRoute extends React.Component<IPropsState, {loading: boolean}> {
+class LoginRoute extends React.Component<IPropsState, {loading: boolean}> {
   constructor(props: any) {
     super(props);
     this.state = {
@@ -29,21 +29,16 @@ class PrivateRoute extends React.Component<IPropsState, {loading: boolean}> {
     });
   }
   public render() {
-    const {path} = this.props.routeProps;
     const {component: Component, ...rest} = this.props.routeProps;
     if (this.state.loading) {
-        return <LoadingComponent/>;
+      return <LoadingComponent/>;
+    } else {
+      if (!this.props.authState) {
+          return <Route {...rest} render={ () => <Component />}/>;
       } else {
-        if (this.props.authState) {
-          if (this.props.role_type === path) {
-            return <Route {...rest} render={ () => <Component />}/>;
-          } else {
-            return <Redirect push to={this.props.role_type}/>;
-          }
-        } else {
-            return <Redirect push to={'/'}/>;
-        }
+        return <Redirect push to={this.props.role_type}/>;
       }
+    }
   }
 }
 
@@ -55,13 +50,13 @@ function mapStateToProps(state: IAppState, routerProps: RouteProps): IStateProps
     routeProps: routerProps,
   };
 }
-// (this.props.role_type === path) ? <Route {...rest} render={() => <Component />} /> : <Redirect to={path}/>
+
 function mapDispatchToProps(dispatch: Dispatch<IDispatchProps>): IDispatchProps {
   return {
     authActions: new AuthActions(dispatch),
   };
 }
 
-const connectApp = connect(mapStateToProps, mapDispatchToProps)(PrivateRoute);
+const connectApp = connect(mapStateToProps, mapDispatchToProps)(LoginRoute);
 
-export {connectApp as PrivateRoute};
+export {connectApp as LoginRoute};

@@ -1,5 +1,5 @@
 import {Dispatch} from 'redux';
-import {authenticationRequest, logOutRequest} from '../api/authApi';
+import {authenticationRequest, getRoleRequestAxios, logOutRequest} from '../api/authApi';
 import {IAsyncAuthActionTypes, IAuthActionTypes} from '../constants/authConstans';
 
 export interface IDispatchProps {
@@ -38,8 +38,22 @@ export class AuthActions {
         });
     });
   }
-  public onUpdateAuth =  (auth: boolean, role: string) => {
-    const res = {authState: auth, role_type: role};
-    return this.dispatch({type: `${IAuthActionTypes.UPDATEDATA}`, payload: res});
+  public onUpdateAuth =  () => {
+    this.dispatch({type: `${IAuthActionTypes.UPDATEDATA}${IAsyncAuthActionTypes.BEGIN}`});
+    return new Promise((resolve, reject) => {
+      getRoleRequestAxios()
+        .then((res: any) => {
+          if (res.data.auth) {
+            this.dispatch({type: `${IAuthActionTypes.UPDATEDATA}${IAsyncAuthActionTypes.SUCCESS}`, payload: {authState: res.data.auth, role_type: res.data.role_type}});
+          } else {
+            this.dispatch({type: `${IAuthActionTypes.UPDATEDATA}${IAsyncAuthActionTypes.FAILURE}`, payload: {serverConnectError: false, serverDataError: true}});
+          }
+          resolve(res);
+        })
+        .catch((error: any) => {
+          this.dispatch({type: `${IAuthActionTypes.UPDATEDATA}${IAsyncAuthActionTypes.FAILURE}`, payload: {serverConnectError: true, serverDataError: false}});
+          reject(error);
+        });
+    });
   }
 }

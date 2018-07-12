@@ -55,11 +55,26 @@ export default function commonReducer(state: ICommonStoreState = initialState.st
         authState: false,
         role_type: null,
       };
-    case `${IAuthActionTypes.UPDATEDATA}`:
+    case `${IAuthActionTypes.UPDATEDATA}${IAsyncAuthActionTypes.BEGIN}`:
       return {
         ...state,
+        loadingState: true,
+        serverConnectError: false,
+        serverDataError: false,
+      };
+    case `${IAuthActionTypes.UPDATEDATA}${IAsyncAuthActionTypes.SUCCESS}`:
+      return {
+        ...state,
+        loadingState: false,
         authState: action.payload.authState,
         role_type: action.payload.role_type,
+      };
+    case `${IAuthActionTypes.UPDATEDATA}${IAsyncAuthActionTypes.FAILURE}`:
+      return {
+        ...state,
+        loadingState: false,
+        serverConnectError: action.payload.serverConnectError,
+        serverDataError: action.payload.serverDataError,
       };
   }
   return state;

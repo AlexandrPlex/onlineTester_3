@@ -30,3 +30,12 @@ export function logOutRequest(): AxiosPromise {
       }
     });
 }
+
+export function getRoleRequestAxios(): AxiosPromise {
+  return axios.post(`${config.apiPrefix}:${config.serverPort}/${config.rootRoutes.getRole}`)
+    .then((response: any) => {
+      if (response.status === 200 || 304) {
+        return response;
+      }
+    });
+}
