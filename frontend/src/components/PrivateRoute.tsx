@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import {Redirect, RouteProps} from 'react-router';
-import {Route} from 'react-router-dom';
+import { Redirect, RouteProps } from 'react-router';
+import { Route } from 'react-router-dom';
 import { Dispatch } from 'redux';
 import { AuthActions, IDispatchProps } from '../actions/authActions';
 import { IAppState } from '../types';
