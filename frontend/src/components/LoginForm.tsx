@@ -1,7 +1,7 @@
 import * as hash from 'object-hash';
-import * as PropTypes from 'prop-types';
 import * as React from 'react';
 import { connect } from 'react-redux';
+import {Redirect} from 'react-router';
 import { Dispatch } from 'redux';
 import { AuthActions, IDispatchProps } from '../actions/authActions';
 import { IAppState } from '../types';
@@ -16,11 +16,8 @@ interface IStateProps {
 type TProps = IDispatchProps & IStateProps;
 
 class LoginForm extends React.PureComponent<TProps, {loginValue: string, passwordValue: string}> {
-  public static contextTypes = {
-    router: PropTypes.object,
-  };
-  constructor(props: any, context: any) {
-    super(props, context);
+  constructor(props: any) {
+    super(props);
   }
   public onHandleLogin = () => {
     if (Boolean(this.state.loginValue) && Boolean(this.state.passwordValue)) {
@@ -33,7 +30,7 @@ class LoginForm extends React.PureComponent<TProps, {loginValue: string, passwor
     }
   }
   public onRedirect = () => {
-    return this.context.router.history.push(this.props.role_type);
+    return <Redirect push to={this.props.role_type}/>;
   }
 
   public render() {

@@ -34,7 +34,7 @@ class LoginRoute extends React.Component<IPropsState, {loading: boolean}> {
       return <LoadingComponent/>;
     } else {
       if (!this.props.authState) {
-          return <Route {...rest} render={ () => <Component />}/>;
+          return <Route {...rest} render={ (props: any) => <Component {...props} {...this.props} />}/>;
       } else {
         return <Redirect push to={this.props.role_type}/>;
       }
