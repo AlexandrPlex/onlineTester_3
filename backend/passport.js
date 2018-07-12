@@ -2,7 +2,7 @@
 import { Strategy as LocalStrategy } from 'passport-local';
 import passport from 'passport';
 
-import db from './db';
+import { db } from './db';
 import config from './config.json';
 
 passport.use('local', new LocalStrategy(
@@ -11,7 +11,7 @@ passport.use('local', new LocalStrategy(
     passwordField: 'password',
   },
   ((username, password, done) => {
-    const request = `SELECT users.name, users.email, role.name as role, role.type as role_type
+    const request = `SELECT users.name, users.email, role.name as role, role.type as role_type, users.id
                           FROM \`${config.mysql.database}\`
                               .\`${config.db_request.user_table}\` 
                      LEFT JOIN \`${config.mysql.database}\`
@@ -24,6 +24,7 @@ passport.use('local', new LocalStrategy(
       if (results.length) {
         return done(null, {
           auth: true,
+          id: results[0].id,
           name: results[0].name,
           email: results[0].email,
           role: results[0].role,

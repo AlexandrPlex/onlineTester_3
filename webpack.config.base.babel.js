@@ -1,4 +1,4 @@
-;import * as path from 'path';
+import * as path from 'path';
 import webpack from 'webpack';
 import postcssCssnext from 'postcss-cssnext';
 import postcssImport from 'postcss-import';
@@ -130,9 +130,8 @@ export default {
     new ProgressBarWebpackPlugin(),
     // Add Progressive Web Application manifest
     new WebpackPwaManifest({
-      short_name: 'Boilerplate',
-      name: 'Boilerplate',
-      description: 'My full-stack boilerplate that using express with webpack, react and typescirpt! (hot module reload and materialize-css supported)',
+      short_name: 'Online Tester',
+      name: 'Online Tester',
       background_color: '#2196f3',
       theme_color: '#2196f3',
       orientation: 'portrait',
@@ -163,8 +162,8 @@ export default {
     }),
     // Generate html file to dist folder
     new HtmlWebpackPlugin({
-      title: 'Boilerplate',
-      favicon: path.resolve(__dirname, 'frontend/src/images/favicon.ico'),
+      title: 'Online Tester',
+      favicon: path.resolve(__dirname, 'frontend/src/images/logo.png'),
       template: path.resolve(__dirname, 'frontend/template/index.ejs'),
     }),
     // Add dll reference files to html
