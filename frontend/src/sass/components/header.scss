@@ -1,4 +1,6 @@
 // Header background color
 nav {
   background-color: $primary-color;
+  display: flex;
+  flex-direction: column;
 }

@@ -4,6 +4,7 @@ import {RouteComponentProps} from 'react-router';
 import { Dispatch } from 'redux';
 import { IDispatchProps, StudentActions } from '../../actions/studentActions';
 import { IAppState } from '../../types';
+import { AnswerCollection } from './AnswerCollection';
 import { AnswerForm } from './AnswerForm';
 
 interface IStateProps {
@@ -30,7 +31,8 @@ class TesterForm extends React.Component<TProps> {
 
   public render() {
     return(
-      <div>
+      <div className='testAnswer content container'>
+        <AnswerCollection />
         <AnswerForm  />
       </div>
     );

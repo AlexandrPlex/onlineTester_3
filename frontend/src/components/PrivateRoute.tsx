@@ -55,7 +55,6 @@ function mapStateToProps(state: IAppState, routerProps: RouteProps): IStateProps
     routeProps: routerProps,
   };
 }
-// (this.props.role_type === path) ? <Route {...rest} render={() => <Component />} /> : <Redirect to={path}/>
 function mapDispatchToProps(dispatch: Dispatch<IDispatchProps>): IDispatchProps {
   return {
     authActions: new AuthActions(dispatch),
