@@ -1,7 +1,7 @@
 import { db, promiseDB } from "../db";
 
 export const getTestListData = async (req, res) => {
-  const request =  `SELECT studentfortests.id,
+  const request =  `SELECT tests.id,
                            tests.title as test, 
                            statustests.tittlestate as status,
                            studentfortests.score,
@@ -35,7 +35,7 @@ export const getTestIssues = async (req, res) => {
             JOIN answer ON issus_to_answer.id_answer = answer.id 
             WHERE issus_to_answer.id_issues = '${idIssues}'`};
 
-  promiseDB.then(conn => {
+  promiseDB.then( conn => {
   const result = conn.query(requestIssues).catch(error => {
     console.log(error);
   });
@@ -47,6 +47,7 @@ export const getTestIssues = async (req, res) => {
   }).then(row => {
     res.send(row);
   }).catch(error => {
+    console.log(error);
     res.send(error);
   })
 };

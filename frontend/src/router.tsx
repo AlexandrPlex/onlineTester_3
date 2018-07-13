@@ -24,7 +24,7 @@ export const router = (
     <Header />
     <Switch>
       <LoginRoute exact path='/' component={ LoginPage } />
-      <PrivateRoute path='/student/test/:id' component={ withAppLayout(TesterForm) }/>
+      <PrivateRoute path='/student/test/:id/:numberAnswer?' component={ withAppLayout(TesterForm) }/>
       <PrivateRoute path='/student' component={ withAppLayout(StudentForm) }/>
       <PrivateRoute path='/admin' component={ AdminPage} />
       <PrivateRoute path='/teacher' component={ TeacherPage } />

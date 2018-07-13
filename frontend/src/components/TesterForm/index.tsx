@@ -17,6 +17,7 @@ interface IStateProps {
 
 interface IRouterParams {
   id: number;
+  numberAnswer: number;
 }
 
 type TProps = IDispatchProps & IStateProps & IRouterParams;
@@ -32,7 +33,7 @@ class TesterForm extends React.Component<TProps> {
   public render() {
     return(
       <div className='testAnswer content container'>
-        <AnswerCollection />
+        <AnswerCollection  />
         <AnswerForm  />
       </div>
     );
@@ -47,6 +48,7 @@ function mapStateToProps(state: IAppState, ownProps: RouteComponentProps<IRouter
     testIssuesList: state.studentReducer.testIssuesList,
     testState: state.studentReducer.testState,
     id: ownProps.match.params.id,
+    numberAnswer: ownProps.match.params.numberAnswer,
   };
 }
 
